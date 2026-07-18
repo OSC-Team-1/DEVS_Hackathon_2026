@@ -11,6 +11,7 @@
         "@turf/helpers": "^7.3.5",
         "ngraph.graph": "^20.1.2",
         "ngraph.path": "^1.6.1",
+        "openai": "^6.48.0",
         "simplex-noise": "^4.0.3",
         "topojson-client": "^3.1.0",
         "world-atlas": "^2.0.2"

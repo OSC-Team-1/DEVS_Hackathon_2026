@@ -20,6 +20,9 @@ importers:
       ngraph.path:
         specifier: ^1.6.1
         version: 1.6.1
+      openai:
+        specifier: ^6.48.0
+        version: 6.48.0
       simplex-noise:
         specifier: ^4.0.3
         version: 4.0.3
@@ -235,6 +238,26 @@ packages:
   ngraph.path@1.6.1:
     resolution: {integrity: sha512-NiA52wAoRo/t36/1dBAZkXPeX+rQ1mn82bc9LSfnfywGY9TxH/jXw3x3fZ1mOCblyln26lHtfHHEzssjjyX+aw==}
 
+  openai@6.48.0:
+    resolution: {integrity: sha512-KhVp+FyV50QrXNextvL9hIU5l6ox5HYuKQjGVk7lIqprgJol90+dQXWONV6S1lRWsKA1bXjrow8RsUT14M1hNA==}
+    peerDependencies:
+      '@aws-sdk/credential-provider-node': '>=3.972.0 <4'
+      '@smithy/hash-node': '>=4.3.0 <5'
+      '@smithy/signature-v4': '>=5.4.0 <6'
+      ws: ^8.18.0
+      zod: ^3.25 || ^4.0
+    peerDependenciesMeta:
+      '@aws-sdk/credential-provider-node':
+        optional: true
+      '@smithy/hash-node':
+        optional: true
+      '@smithy/signature-v4':
+        optional: true
+      ws:
+        optional: true
+      zod:
+        optional: true
+
   point-in-polygon-hao@1.2.4:
     resolution: {integrity: sha512-x2pcvXeqhRHlNRdhLs/tgFapAbSSe86wa/eqmj1G6pWftbEs5aVRJhRGM6FYSUERKu0PjekJzMq0gsI2XyiclQ==}
 
@@ -408,6 +431,8 @@ snapshots:
       ngraph.events: 1.4.0
 
   ngraph.path@1.6.1: {}
+
+  openai@6.48.0: {}
 
   point-in-polygon-hao@1.2.4:
     dependencies:
