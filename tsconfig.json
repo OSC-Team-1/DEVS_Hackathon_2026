@@ -14,7 +14,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "incremental": true,
     "strictPropertyInitialization": false,
     "paths": {
@@ -22,19 +22,12 @@
         "./src/*"
       ]
     },
-    "target": "ES2017",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "dist/types/**/*.ts",
-    "dist/dev/types/**/*.ts"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"
