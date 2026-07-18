@@ -1,0 +1,13 @@
+{
+	"manifest_version": 3,
+	"name": "browser adventures",
+	"version": "1.0",
+	"description": "redirect to website",
+
+	"content_scripts": [
+		{
+			"matches": ["*://*/*"],
+			"js": ["modify-url.js"]
+		}
+	]
+}
