@@ -3,7 +3,7 @@ import { MapScene } from "./scenes/MapScene";
 import { MinigameScene } from "./scenes/MinigameScene";
 import { OceanMinigame } from "./scenes/OceanMinigame";
 import { MountainMinigame } from "./scenes/MountainMinigame";
-import { PlainsMinigame } from "./scenes/PlainsMiniGame";
+import { PlainsMinigame } from "./scenes/PlainsMinigame";
 import { DesertMinigame } from "./scenes/DesertMinigame";
 import { AUTO, Game, Types, Scale } from "phaser";
 
