@@ -5,7 +5,7 @@ function replace() {
 	let links = document.getElementsByTagName("a")
 	for (let link of links) {
 		let destination = link.getAttribute("href")
-		let origin = window.location
+		let origin = encodeURIComponent(window.location)
 		if (/^(https?:\/\/)?127\.0\.0\.1.*$/.test(destination)) {
 			continue;
 		}
@@ -13,10 +13,12 @@ function replace() {
 			continue;
 		}
 		if (/^\/.*$/.test(destination)) {
-			link.setAttribute("href", `https://127.0.0.1/?dest=https://${window.location.hostname}${destination}&origin=${origin}`)
+			let destination_final = encodeURIComponent(`https://${window.location.hostname}${destination}`)
+			link.setAttribute("href", `https://127.0.0.1/?dest=${destination_final}&origin=${origin}`)
 		}
 		if (/^(https?:\/\/).*$/.test(destination)) {
-			link.setAttribute("href", `https://127.0.0.1/?dest=${destination}&origin=${origin}`)
+			let destination_final = encodeURIComponent(`${destination}`)
+			link.setAttribute("href", `https://127.0.0.1/?dest=${destination_final}&origin=${origin}`)
 		}
 	}
 }
