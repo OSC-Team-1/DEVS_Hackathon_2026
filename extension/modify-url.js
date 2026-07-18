@@ -6,7 +6,7 @@ function replace() {
 	for (let link of links) {
 		let destination = link.getAttribute("href")
 		let origin = encodeURIComponent(window.location)
-		if (/^(https?:\/\/)?127\.0\.0\.1.*$/.test(destination)) {
+		if (/^(https?:\/\/)?localhost:8080.*$/.test(destination)) {
 			continue;
 		}
 		if (/^\#.*$/.test(destination)) {
@@ -14,11 +14,11 @@ function replace() {
 		}
 		if (/^\/.*$/.test(destination)) {
 			let destination_final = encodeURIComponent(`https://${window.location.hostname}${destination}`)
-			link.setAttribute("href", `https://127.0.0.1/?dest=${destination_final}&origin=${origin}`)
+			link.setAttribute("href", `http://localhost:8080/?dest=${destination_final}&origin=${origin}`)
 		}
 		if (/^(https?:\/\/).*$/.test(destination)) {
 			let destination_final = encodeURIComponent(`${destination}`)
-			link.setAttribute("href", `https://127.0.0.1/?dest=${destination_final}&origin=${origin}`)
+			link.setAttribute("href", `http://localhost:8080/?dest=${destination_final}&origin=${origin}`)
 		}
 	}
 }
