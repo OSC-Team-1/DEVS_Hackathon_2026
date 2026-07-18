@@ -1,0 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@400;600;800&display=swap');
+
+:root {
+  --bg-deep: #0b1026;
+  --bg-mid: #1a1a4e;
+  --accent: #ffb347;
+  --accent-2: #4ee7ff;
+  --danger: #ff4d6d;
+  --success: #4dff9e;
+  --panel: rgba(16, 18, 46, 0.72);
+  --panel-border: rgba(255, 255, 255, 0.14);
+  --text: #f4f2ff;
+  --font-display: 'Press Start 2P', monospace;
+  --font-body: 'Baloo 2', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-deep);
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Animated backdrop ---------- */
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(78, 231, 255, 0.15), transparent 55%),
+    radial-gradient(ellipse at 80% 90%, rgba(255, 179, 71, 0.15), transparent 55%),
+    linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-mid) 55%, #0b1026 100%);
+  background-size: 200% 200%;
+  animation: driftBg 18s ease-in-out infinite;
+  padding: 14px 18px;
+  gap: 12px;
+}
+
+@keyframes driftBg {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* floating stars/particles layer */
+#app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(2px 2px at 80% 30%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 60% 70%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(2px 2px at 30% 85%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 90% 60%, rgba(255,255,255,0.3), transparent);
+  animation: twinkle 6s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* ---------- HUD narrative panel (TOP) ---------- */
+.hud-top {
+  position: relative;
+  z-index: 2;
+  width: min(900px, 96%);
+  flex: 0 0 auto;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 16px 22px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+  text-align: center;
+  animation: floatIn 0.6s ease;
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.route-label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--accent-2);
+  margin: 0 0 8px 0;
+  text-shadow: 0 0 8px rgba(78,231,255,0.5);
+}
+
+.flavor-text {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text);
+  min-height: 1.6em;
+}
+
+.flavor-text.typing::after {
+  content: "▌";
+  animation: blink 0.9s steps(1) infinite;
+  color: var(--accent);
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.status {
+  margin: 8px 0 0 0;
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  display: inline-block;
+  animation: pulse 1.1s ease-in-out infinite;
+}
+
+.status.lost {
+  background: rgba(255, 77, 109, 0.18);
+  color: var(--danger);
+  border: 1px solid rgba(255, 77, 109, 0.5);
+}
+
+.status.arrived {
+  background: rgba(77, 255, 158, 0.18);
+  color: var(--success);
+  border: 1px solid rgba(77, 255, 158, 0.5);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+/* ---------- Game stage (MIDDLE) ---------- */
+.stage {
+  position: relative;
+  z-index: 2;
+  flex: 1 1 auto;
+  width: min(900px, 96%);
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #0d1233, #171b45);
+  border: 2px solid var(--panel-border);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 20px 60px rgba(0,0,0,0.5),
+    inset 0 0 80px rgba(78,231,255,0.05);
+}
+
+#game-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#game-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  border-radius: 18px;
+  image-rendering: pixelated;
+}
+
+/* loading shimmer while phaser boots */
+.stage.loading::after {
+  content: "Loading journey...";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--accent-2);
+  background: linear-gradient(90deg, transparent, rgba(78,231,255,0.08), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ---------- Bottom bar ---------- */
+.hud-bottom {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+  width: min(900px, 96%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0 2px;
+}
+
+.button {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  backdrop-filter: blur(6px);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
+}
+
+.button:active {
+  transform: translateY(0px) scale(0.97);
+}
+
+.button.forfeit {
+  border-color: rgba(255, 77, 109, 0.4);
+  color: #ffd7de;
+}
+
+.button.forfeit:hover {
+  box-shadow: 0 6px 18px rgba(255, 77, 109, 0.25);
+  border-color: var(--danger);
+}
+
+/* ---------- Cutscene overlay (site-hop inconvenience) ---------- */
+.cutscene {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 14px;
+  background: radial-gradient(circle at 50% 40%, #1a1a4e 0%, #05060f 80%);
+  animation: cutsceneIn 0.4s ease;
+}
+
+@keyframes cutsceneIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cutscene-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--accent);
+  text-shadow: 0 0 14px rgba(255,179,71,0.6);
+  animation: cutsceneFloat 2.2s ease-in-out infinite;
+}
+
+@keyframes cutsceneFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 700px) {
+  .flavor-text { font-size: 0.95rem; }
+  .route-label { font-size: 8px; }
+  #app { padding: 8px 10px; gap: 8px; }
+}
